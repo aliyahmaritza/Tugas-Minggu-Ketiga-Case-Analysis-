@@ -1,19 +1,7 @@
-# Overview of the Project Structure
+# Case Analysis (Analisis Ekspresi Gen Kanker Paru)
 
-This project is structured into several key sections, each serving a specific purpose.
-
-## Laporan
-
-This section contains reports that summarize the findings and analyses of the case study.
-
-## Script Analisis
-
-Here you will find the analysis scripts that implement the methods and techniques used during the project. These scripts are crucial for reproducing the results.
-
-## Dataset
-
-This section includes the datasets used for analysis. The data is organized for easy access and reference.
-
-## Visualisasi
-
-In this section, you will find visualizations that represent the analytical results. Visual aids enhance the understanding of the data and findings.
+# Pendahuluan:
+Kanker paru merupakan salah satu penyebab utama kematian akibat kanker di dunia, dengan tipe adenokarsinoma paru sebagai subtipe yang paling umum ditemukan. Penyakit ini berkembang melalui akumulasi perubahan genetik dan epigenetik yang memengaruhi regulasi proliferasi sel, apoptosis, angiogenesis, serta kemampuan metastasis. Perkembangan teknologi high-throughput seperti microarray memungkinkan analisis ekspresi ribuan gen secara simultan untuk mengidentifikasi perubahan molekuler yang mendasari transformasi sel normal menjadi sel kanker. Oleh karena itu, pendekatan bioinformatika berbasis data publik menjadi strategi penting dalam mengeksplorasi biomarker potensial dan target terapi. Dalam studi ini digunakan dataset GSE10072 yang tersedia di Gene Expression Omnibus (GEO) dengan platform microarray Affymetrix GPL96 untuk membandingkan profil ekspresi gen antara jaringan adenokarsinoma paru dan jaringan paru normal. Analisis ini bertujuan mengidentifikasi Differentially Expressed Genes (DEG) yang berperan dalam patogenesis kanker paru, sehingga dapat memberikan pemahaman molekuler yang lebih mendalam serta mendukung pengembangan pendekatan diagnostik dan terapi berbasis presisi
+.
+# Metode analisis:
+Analisis Differentially Expressed Genes (DEG) dilakukan menggunakan Rstudio dengan dataset GSE10072 yang diperoleh dari basis data Gene Expression Omnibus (GEO) dengan platform microarray Affymetrix GPL96. Data diunduh menggunakan paket GEOquery dalam format ExpressionSet, kemudian matriks ekspresi diekstraksi dan dilakukan transformasi log2 secara kondisional untuk menstabilkan varians serta memenuhi asumsi model linear. Informasi kelompok sampel (adenokarsinoma paru dan jaringan normal) diperoleh dari metadata dan dikonversi menjadi faktor untuk menyusun design matrix tanpa intersep menggunakan fungsi model.matrix(~0 + group), sehingga memungkinkan perbandingan langsung antar kondisi biologis. Identifikasi gen yang terekspresi berbeda dilakukan menggunakan paket limma melalui tahapan lmFit(), contrasts.fit(), dan eBayes() untuk memperoleh estimasi varians yang dimoderasi secara empirical Bayes. Gen dengan nilai adjusted p-value (False Discovery Rate/FDR) < 0,01 ditetapkan sebagai DEG signifikan. Selanjutnya, ID probe dipetakan ke gene symbol dan gene name menggunakan paket anotasi hgu133a.db yang sesuai dengan platform, kemudian hasil dianalisis secara deskriptif dan divisualisasikan melalui boxplot, density plot, UMAP, volcano plot, serta heatmap untuk mengevaluasi pola ekspresi dan pemisahan kelompok sampel. Hasil akhir disimpan dalam format CSV untuk analisis lanjutan. 
